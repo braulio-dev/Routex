@@ -1,16 +1,10 @@
-//
-//  StartRouteView.swift
-//  Proyecto1
-//
-//  Created by CETYS Universidad  on 19/02/25.
-//
-
 import SwiftUI
 import MapKit
 
-struct StartRouteView: View {
+struct RouteStartView: View {
     
-    @State private var locationManager = LocationManager()
+    @EnvironmentObject private var viewModel: RouteViewModel
+    @StateObject private var locationManager = LocationManager()
     @State private var timeStart: Date?
     @State private var timeEnd: Date?
     @State private var locationStart: Location?
@@ -21,10 +15,10 @@ struct StartRouteView: View {
         VStack(spacing: 25) {
             
             Map(coordinateRegion: $locationManager.region, showsUserLocation: true)
-                            .edgesIgnoringSafeArea(.top)
-                            .frame(height: 500)
-                            .cornerRadius(20)
-                            .padding(20)
+                .edgesIgnoringSafeArea(.top)
+                .frame(height: 500)
+                .cornerRadius(20)
+                .padding(20)
             
             // Start Button
             Button {
@@ -60,7 +54,13 @@ struct StartRouteView: View {
                     longitude: locationManager.region.center.longitude
                 )
                 timeEnd = Date()
-                // TODO: open route metrics
+                
+                RouteDetailsView(
+                    startLocation: locationStart,
+                    endLocation: locationEnd,
+                    timeStart: timeStart,
+                    timeEnd: timeEnd
+                )
             } label: {
                 Text("End")
                     .padding()
@@ -87,12 +87,15 @@ struct StartRouteView: View {
         }
     }
     
-    // Update the currentLocation with the new latitude and longitude
+    private func openDetails() {
+        
+    }
+    
     private func updateLocation(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
         currentLocation = Location(latitude: latitude, longitude: longitude)
     }
 }
 
 #Preview {
-    StartRouteView()
+    RouteStartView()
 }

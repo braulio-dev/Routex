@@ -1,42 +1,30 @@
-//
-//  SwiftUIView.swift
-//  Proyecto1
-//
-//  Created by CETYS Universidad  on 19/02/25.
-//
-
 import SwiftUI
 
 struct RouteListView: View {
     
-    @ObservedObject private var viewModel =  RouteViewModel()
-     
+    @StateObject private var viewModel = RouteViewModel()
+    @State private var showRouteStartView = false
+    
     var body: some View {
         NavigationView {
-            
-            // Add a List here to show MoodEntry items
             List {
-                // Each row should use MoodRowView
-                ForEach(viewModel.routes) { entry in
+                ForEach(viewModel.routes) { route in
+                    RouteRowView(route: route)
                 }
-                
             }
             .navigationTitle("Routes")
-//            .toolbar {
-//                ToolbarItem(placement: .navigationBarTrailing){
-//                    Button(action: {
-//                        showAddMoodView = true
-//                    }) {
-//                        Image(systemName: "plus")
-//                    }
-//                }
-//                ToolbarItem(placement: .navigationBarLeading){
-//                    EditButton()
-//                }
-//            }
-//            .sheet(isPresented: $showAddMoodView) {
-//                AddMoodView(viewModel: viewModel)
-//            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        showRouteStartView = true
+                    }) {
+                        Image(systemName: "plus")
+                    }
+                }
+            }
+            .sheet(isPresented: $showRouteStartView) {
+                RouteStartView()
+            }
         }
     }
 }

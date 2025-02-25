@@ -14,5 +14,6 @@ struct Route: Identifiable {
     let timeEnd: Date
     let locationStart: Location
     let locationEnd: Location
+    let distance: Double
     let image: UIImage?
 }

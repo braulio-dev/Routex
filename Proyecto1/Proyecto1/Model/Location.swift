@@ -5,7 +5,10 @@
 //  Created by CETYS Universidad  on 19/02/25.
 //
 
-struct Location {
+import SwiftUI
+
+struct Location : Identifiable{
+    let id = UUID()
     let latitude: Double
     let longitude: Double
 }
