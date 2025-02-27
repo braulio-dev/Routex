@@ -9,7 +9,12 @@ struct RouteListView: View {
         NavigationView {
             List {
                 ForEach(viewModel.routes) { route in
-                    RouteRowView(route: route)
+                    
+                    NavigationLink(
+                        destination: RouteView(route: route)
+                    ) {
+                        RouteRowView(route: route)
+                    }
                 }
             }
             .navigationTitle("Routes")
@@ -23,7 +28,8 @@ struct RouteListView: View {
                 }
             }
             .sheet(isPresented: $showRouteStartView) {
-                RouteStartView()
+                RouteStartView(showRouteStartView: $showRouteStartView)
+                    .environmentObject(viewModel)
             }
         }
     }
