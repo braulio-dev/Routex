@@ -10,7 +10,7 @@ import MapKit
 
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 0, longitude: 0),
+        center: CLLocationCoordinate2D(latitude: 32.5332, longitude: 117.0193),
         span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
     )
     @Published var showLocationAlert = false
